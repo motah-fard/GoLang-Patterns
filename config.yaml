@@ -1,0 +1,4 @@
+log_file: "logs.txt"
+output_file: "output.json"
+num_workers: 5
+log_level: "INFO"

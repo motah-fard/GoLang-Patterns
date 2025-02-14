@@ -5,8 +5,9 @@ import (
 	"sync"
 )
 
+// ProcessLogs processes logs using worker goroutines
 func ProcessLogs(logCh <-chan string, processedCh chan<- *LogEntry, wg *sync.WaitGroup) {
-	defer wg.Done()
+	defer wg.Done() // Ensure Done is only called once per worker
 
 	for logLine := range logCh {
 		entry, err := ParseLog(logLine)
@@ -14,10 +15,10 @@ func ProcessLogs(logCh <-chan string, processedCh chan<- *LogEntry, wg *sync.Wai
 			continue
 		}
 
-		if entry.Level == "ERROR" { // Example: Filter ERROR logs
+		if entry.Level == "ERROR" {
 			fmt.Println("Found error log:", entry)
 		}
 
-		processedCh <- entry // Send structured logs to next stage
+		processedCh <- entry // Send processed log
 	}
 }
