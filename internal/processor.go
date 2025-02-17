@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"fmt"
+	"log_pipeline/utils"
 	"sync"
 )
 
@@ -16,7 +16,8 @@ func ProcessLogs(logCh <-chan string, processedCh chan<- *LogEntry, wg *sync.Wai
 		}
 
 		if entry.Level == "ERROR" {
-			fmt.Println("Found error log:", entry)
+			utils.Logger.Printf("Found error log: %+v\n", entry)
+
 		}
 
 		processedCh <- entry // Send processed log
