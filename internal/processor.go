@@ -20,6 +20,6 @@ func ProcessLogs(logCh <-chan string, processedCh chan<- *LogEntry, wg *sync.Wai
 
 		}
 
-		processedCh <- entry
+		processedCh <- entry // Send processed log
 	}
 }
